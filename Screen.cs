@@ -31,7 +31,6 @@ namespace CourseWorkCs
                 Console.Write(c);
                 Thread.Sleep(35); // Задержка в миллисекундах
             }
-            Console.WriteLine();
         }
 
         // Вывод прямой речи NPC
