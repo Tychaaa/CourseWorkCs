@@ -28,7 +28,10 @@
 
             //Function.Prologue(mainCharacter);
 
-            Function.EnterEmerdaleLocation(mainCharacter);
+            //Function.EnterEmerdaleLocation(mainCharacter);
+
+            //Function.GoodEnding(mainCharacter);
+            //Function.BadEnding(mainCharacter);
         }
     }
 }
