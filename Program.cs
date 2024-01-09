@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            // Создаем локацию
+            /*// Создаем локацию
             Location townSquare = new Location("Городская площадь", "Центр города с оживленной атмосферой.");
 
             // Создаем несколько NPC
@@ -18,7 +18,20 @@
             townSquare.AddInteractiveObject(npc3);
 
             // Входим в локацию
-            townSquare.OnEnter();
+            townSquare.OnEnter();*/
+
+            //Function.MainMenu();
+
+            Character mainCharacter = Function.CreateMainCharacter();
+
+            //Function.Introduction(ref mainCharacter);
+
+            //Function.Prologue(mainCharacter);
+
+            //Function.EnterEmerdaleLocation(mainCharacter);
+
+            //Function.GoodEnding(mainCharacter);
+            //Function.BadEnding(mainCharacter);
         }
     }
 }
