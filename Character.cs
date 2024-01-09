@@ -190,7 +190,7 @@ namespace CourseWorkCs
         }
 
 
-        public void Attack(Character target)
+        public virtual void Attack(Character target)
         {
             Random random = new Random();
             int choice = random.Next(1, 101);
@@ -258,7 +258,7 @@ namespace CourseWorkCs
         }
 
         // Метод восстановления выносливости
-        public int RegenerateStamina()
+        public virtual int RegenerateStamina()
         {
             int staminaRegenerationAmount = 10 + (int)(0.5 * level);
             if (stamina < maxStamina)
@@ -273,7 +273,7 @@ namespace CourseWorkCs
         }
 
         // Метод восстановления маны
-        public int RegenerateMana()
+        public virtual int RegenerateMana()
         {
             int manaRegenerationAmount = 10 + (int)(0.5 * level);
             if (mana < maxMana)
