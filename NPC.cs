@@ -51,14 +51,18 @@ namespace CourseWorkCs
             // Выводим фразы по порядку
             if (talkPhrases.Count > 0)
             {
-                Screen.DisplayDialog(GetName(), talkPhrases[0]);
+                Console.Write($"\n{GetName()}:");
+                Thread.Sleep(500);
+                Screen.DisplayCharacterByCharacter(talkPhrases[0] + "\n");
 
                 // Удаляем использованную фразу
                 talkPhrases.RemoveAt(0);
             }
             else
             {
-                Screen.DisplayDialog(GetName(), "- Иди своей дорогой, путник!");
+                Console.Write($"\n{GetName()}:");
+                Thread.Sleep(500);
+                Screen.DisplayCharacterByCharacter("\"- Иди своей дорогой, путник!\"\n");
             }
         }
 
