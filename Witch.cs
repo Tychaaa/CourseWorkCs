@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CourseWorkCs
 {
+    /*
+    *   ВЕДЬМА (WITCH)
+    */
     public class Witch : Character
     {
         public Witch() : base() { }

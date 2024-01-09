@@ -9,7 +9,6 @@ namespace CourseWorkCs
     /*
     *   ОГР (OGRE)
     */
-
     public class Ogre : Character
     {
         public Ogre() : base() { }

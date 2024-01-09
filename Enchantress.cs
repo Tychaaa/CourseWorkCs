@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CourseWorkCs
 {
+    /*
+    *   ЗАКЛИНАТЕЛЬНИЦА (ENCHANTRESS)
+    */
     public class Enchantress : Character
     {
         public Enchantress() : base() { }

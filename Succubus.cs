@@ -7,6 +7,9 @@ using System.Xml.Linq;
 
 namespace CourseWorkCs
 {
+    /*
+    *   СУККУБ (SUCCUBUS)
+    */
     public class Succubus : Character
     {
         public Succubus() : base() { }

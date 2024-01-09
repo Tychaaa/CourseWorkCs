@@ -7,6 +7,9 @@ using System.Xml.Linq;
 
 namespace CourseWorkCs
 {
+    /*
+    *   СКЕЛЕТ (SKELETON)
+    */
     public class Skeleton : Character
     {
         public Skeleton() : base() { }

@@ -7,6 +7,9 @@ using System.Xml.Linq;
 
 namespace CourseWorkCs
 {
+    /*
+    *   ГОБЛИН (GOBLIN)
+    */
     public class Goblin : Character
     {
         public Goblin() : base() { }

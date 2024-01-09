@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CourseWorkCs
 {
+    /*
+    *   ВЛАДЫКА ТЬМЫ (DARK LORD)
+    */
     public class DarkLord : Character
     {
         public DarkLord() : base() { }

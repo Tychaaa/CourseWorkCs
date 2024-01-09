@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CourseWorkCs
 {
+    /*
+    *   ДЕМОН-СТРАЖНИК (DEMON)
+    */
     public class Demon : Character
     {
         public Demon() : base() { }

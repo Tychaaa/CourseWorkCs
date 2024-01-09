@@ -7,6 +7,9 @@ using System.Xml.Linq;
 
 namespace CourseWorkCs
 {
+    /*
+    *   ТЁМНЫЙ ЭЛЬФ (DARK ELF)
+    */
     public class DarkElf : Character
     {
         public DarkElf() : base() { }
