@@ -42,13 +42,13 @@ namespace CourseWorkCs
             if (stamina >= staminaCost)
             {
                 int damage = 25;
-                Screen.DisplayCharacterByCharacter(name + " размахивает костями и ударяет " + target.GetName() + ".");
+                Screen.DisplayCharacterByCharacter(name + " размахивает костями и ударяет " + target.GetName() + ".\n");
                 target.TakeDamage(damage);
                 DecreaseStamina(staminaCost);
             }
             else
             {
-                Screen.DisplayCharacterByCharacter(name + " слишком устал для удара костями.");
+                Screen.DisplayCharacterByCharacter(name + " слишком устал для удара костями.\n");
             }
         }
 
@@ -59,13 +59,13 @@ namespace CourseWorkCs
             if (stamina >= staminaCost)
             {
                 int damage = 15;
-                Screen.DisplayCharacterByCharacter(name + " бросает кость в " + target.GetName() + ".");
+                Screen.DisplayCharacterByCharacter(name + " бросает кость в " + target.GetName() + ".\n");
                 target.TakeDamage(damage);
                 DecreaseStamina(staminaCost);
             }
             else
             {
-                Screen.DisplayCharacterByCharacter(name + " слишком устал, чтобы бросить кость.");
+                Screen.DisplayCharacterByCharacter(name + " слишком устал, чтобы бросить кость.\n");
             }
         }
 
@@ -84,7 +84,7 @@ namespace CourseWorkCs
             }
             else
             {
-                Screen.DisplayCharacterByCharacter(name + " промахивается и не попадает по " + target.GetName() + ".");
+                Screen.DisplayCharacterByCharacter(name + " промахивается и не попадает по " + target.GetName() + ".\n");
             }
         }
     }

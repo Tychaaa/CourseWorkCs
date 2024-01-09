@@ -41,13 +41,13 @@ namespace CourseWorkCs
             if (stamina >= staminaCost)
             {
                 int damage = 25;
-                Screen.DisplayCharacterByCharacter(name + " размахивает кулаками и наносит сокрушительный удар по " + target.GetName() + ".");
+                Screen.DisplayCharacterByCharacter(name + " размахивает кулаками и наносит сокрушительный удар по " + target.GetName() + ".\n");
                 target.TakeDamage(damage);
                 DecreaseStamina(staminaCost);
             }
             else
             {
-                Screen.DisplayCharacterByCharacter(name + " чувствует усталость и не может совершить удар с полной силой.");
+                Screen.DisplayCharacterByCharacter(name + " чувствует усталость и не может совершить удар с полной силой.\n");
             }
         }
 
@@ -58,13 +58,13 @@ namespace CourseWorkCs
             if (stamina >= staminaCost)
             {
                 int damage = 30;
-                Screen.DisplayCharacterByCharacter(name + " наносит мощный удар о землю, поднимается волна, ударяя " + target.GetName() + ".");
+                Screen.DisplayCharacterByCharacter(name + " наносит мощный удар о землю, поднимается волна, ударяя " + target.GetName() + ".\n");
                 target.TakeDamage(damage);
                 DecreaseStamina(staminaCost);
             }
             else
             {
-                Screen.DisplayCharacterByCharacter(name + " слишком устал для такого мощного удара. Ему не хватает выносливости.");
+                Screen.DisplayCharacterByCharacter(name + " слишком устал для такого мощного удара. Ему не хватает выносливости.\n");
             }
         }
 
@@ -75,13 +75,13 @@ namespace CourseWorkCs
             if (stamina >= staminaCost)
             {
                 int damage = 15;
-                Screen.DisplayCharacterByCharacter(name + " наносит удар кулаком по " + target.GetName() + ".");
+                Screen.DisplayCharacterByCharacter(name + " наносит удар кулаком по " + target.GetName() + ".\n");
                 target.TakeDamage(damage);
                 DecreaseStamina(staminaCost);
             }
             else
             {
-                Screen.DisplayCharacterByCharacter(name + " слишком устал для удара кулаком и начинает отступать.");
+                Screen.DisplayCharacterByCharacter(name + " слишком устал для удара кулаком и начинает отступать.\n");
             }
         }
 
@@ -104,7 +104,7 @@ namespace CourseWorkCs
             }
             else
             {
-                Screen.DisplayCharacterByCharacter(name + " промахивается и не попадает по " + target.GetName() + ".");
+                Screen.DisplayCharacterByCharacter(name + " промахивается и не попадает по " + target.GetName() + ".\n");
             }
         }
     }

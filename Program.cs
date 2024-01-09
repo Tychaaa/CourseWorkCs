@@ -36,9 +36,9 @@
             CombatSystem fight = new CombatSystem();
             Wolf wolf = new Wolf("Волк", 100, 50, 50);
 
-            Weapon sword = new Weapon("Меч", 30, 20);
+            Weapon sword = new Weapon("Меч", 30, 25);
             Magic fireball = new Magic("Огенный шар", 35, 25);
-            Character mainCharacter = new Character("SHICHI", 100, 100, 100, sword, fireball, "Воин");
+            Character mainCharacter = new Character("SHICHI", 100, 30, 35, sword, fireball, "Воин");
 
             fight.StartGame(mainCharacter, wolf);
         }

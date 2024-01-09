@@ -213,20 +213,20 @@ namespace CourseWorkCs
             }
             else
             {
-                Console.WriteLine(name + " промахивается и не попадает по " + target.GetName() + ".\n");
+                Screen.DisplayCharacterByCharacter(name + " промахивается и не попадает по " + target.GetName() + ".\n");
             }
         }
 
         public void AttackWeapon(Character target)
         {
-            Console.WriteLine(name + " атакует " + target.GetName() + ", используя " + weapon.GetName() + ".\n");
+            Screen.DisplayCharacterByCharacter(name + " атакует " + target.GetName() + ", используя " + weapon.GetName() + ".\n");
             target.TakeDamage(weapon.GetDamage());
             DecreaseStamina(weapon.GetCost());
         }
 
         public void CastSpell(Character target)
         {
-            Console.WriteLine(name + " кастует " + magic.GetName() + " на " + target.name + ".\n");
+            Screen.DisplayCharacterByCharacter(name + " кастует " + magic.GetName() + " на " + target.GetName() + ".\n");
             target.TakeDamage(magic.GetDamage());
             DecreaseMana(magic.GetCost());
         }
@@ -242,7 +242,7 @@ namespace CourseWorkCs
                 health -= damage;
             }
 
-            Console.WriteLine(name + " получил " + damage + " урона.\n");
+           Screen.DisplayCharacterByCharacter(name + " получил " + damage + " урона.\n");
         }
 
         // Метод уменьшения запаса выносливости

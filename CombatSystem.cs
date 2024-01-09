@@ -73,10 +73,12 @@ namespace CourseWorkCs
         public void StartGame(Character player, Character enemy)
         {
             isTraining = false;
+            // Сохранение начальных характеристик игрока
             prevMaxPlayerHealth = player.GetHealth();
             prevMaxPlayerStamina = player.GetStamina();
             prevMaxPlayerMana = player.GetMana();
 
+            //Запуск боя
             InitiateCombat(player, enemy);
         }
 
@@ -84,11 +86,13 @@ namespace CourseWorkCs
         public void StartGameTraining(Character player, Character enemy)
         {
             isTraining = true;
+            // Сохранение начальных характеристик игрока
             prevMaxPlayerHealth = player.GetHealth();
             prevMaxPlayerStamina = player.GetStamina();
             prevMaxPlayerMana = player.GetMana();
 
             DisplayTrainingInstructions();
+            //Запуск боя
             InitiateCombat(player, enemy);
         }
 
@@ -100,6 +104,7 @@ namespace CourseWorkCs
 
             DisplayCharacterInfo(player, enemy);
 
+            // После вывода информации нужно вызвать методы для ходов игрока и противника
             while (!CheckVictory(player, enemy))
             {
                 PlayerTurn(player, enemy);
@@ -129,11 +134,11 @@ namespace CourseWorkCs
                 Console.WriteLine("3. Пропустить ход\n");
                 Thread.Sleep(100);
 
-                Console.Write("\nВаше действие: ");
+                Console.Write("Ваше действие: ");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice))
                 {
-                    Console.WriteLine("\nНеверный ввод! Попробуйте снова.\n");
+                    Console.WriteLine("\nНеверный ввод! Попробуйте снова.");
                     continue;
                 }
 
@@ -143,7 +148,7 @@ namespace CourseWorkCs
                 {
                     if (player.GetStamina() < player.GetWeapon().GetCost())
                     {
-                        Console.WriteLine($"Вы слишком изнурены для использования {player.GetWeapon().GetName()}.\n");
+                        Screen.DisplayCharacterByCharacter($"Вы слишком изнурены для использования {player.GetWeapon().GetName()}.\n");
                         continue;
                     }
 
@@ -154,7 +159,7 @@ namespace CourseWorkCs
                 {
                     if (player.GetMana() < player.GetMagic().GetCost())
                     {
-                        Console.WriteLine($"Вы слишком изнурены для использования {player.GetMagic().GetName()}.\n");
+                        Screen.DisplayCharacterByCharacter($"Вы слишком изнурены для использования {player.GetMagic().GetName()}.\n");
                         continue;
                     }
 
@@ -163,12 +168,12 @@ namespace CourseWorkCs
                 }
                 else if (choice == 3)
                 {
-                    Console.WriteLine($"{player.GetName()} начинает отступать.\n");
+                    Screen.DisplayCharacterByCharacter($"{player.GetName()} начинает отступать.\n");
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("Промах!\n");
+                    Screen.DisplayCharacterByCharacter("Промах!\n");
                     break;
                 }
             }
@@ -192,28 +197,33 @@ namespace CourseWorkCs
                     Console.WriteLine("\nОкончание тренировочного боя.\n");
                     Thread.Sleep(1000);
 
+                    // Восстановление значений здоровья, выносливости и маны игрока
                     RestoreCharacterStats(player);
 
+                    //Рализация без воскрешщения
                     return true;
                 }
                 Console.WriteLine("\nСмерть... горькая тишина опустилась на битву. Тело героя лежит бездыханное, но что-то внутри него еще борется...");
                 Thread.Sleep(1000);
                 Console.WriteLine("Слабый пульс начинает пульсировать вновь. Глаза героя открываются, словно он получил новую жизнь.");
                 Thread.Sleep(1000);
-                Console.WriteLine("Герой, смутно помня предыдущие события, чувствует, что его сила возросла. Он стал сильнее, быстрее, живучее...");
+                Console.WriteLine("Герой, смутно помня предыдущие события, чувствует, что его сила возросла. Он стал сильнее, быстрее, живучее...\n");
                 Thread.Sleep(1000);
 
+                // Восстановление значений здоровья, выносливости и маны игрока
                 player.SetMaxHealth((int)(player.GetMaxHealth() * 1.2)); // Увеличиваем максимальное здоровье в 1.2
                 player.SetMaxStamina((int)(player.GetMaxStamina() * 1.2)); // Увеличиваем максимальную выносливость в 1.2
                 player.SetMaxMana((int)(player.GetMaxMana() * 1.2)); // Увеличиваем максимальную выносливость в 1.2
                 playerGetBonus = true;
 
+                // Восстановление значений здоровья, выносливости и маны игрока и противника
                 RestoreCharacterStats(player);
                 RestoreCharacterStats(enemy);
 
+                // Перезапуск боя с сохраненными значениями
                 InitiateCombat(player, enemy);
 
-                return true;
+                return true; // Возвращаем true, чтобы бой перезапустился
             }
             else if (enemy.GetHealth() <= 0)
             {
@@ -228,6 +238,7 @@ namespace CourseWorkCs
                     player.SetMaxMana(prevMaxPlayerMana);
                 }
 
+                // Восстановление значений здоровья, выносливости и маны игрока
                 RestoreCharacterStats(player);
 
                 Console.WriteLine("Победа приносит новый опыт. Ощущение победы наполняет его душу, его путь становится яснее.");
@@ -253,6 +264,11 @@ namespace CourseWorkCs
         // Вывод информации о персонажах на экран
         public void DisplayCharacterInfo(Character player, Character enemy)
         {
+            int playerRegenarateStamainaAmount = player.RegenerateStamina();
+            int playerRegenarateManaAmount = player.RegenerateMana();
+            int enemyRegenarateStamainaAmount = enemy.RegenerateStamina();
+            int enemyRegenarateManaAmount = enemy.RegenerateMana();
+
             Console.WriteLine("\n+-------------------------+-------------------------+");
             Thread.Sleep(100);
             Console.WriteLine("| Информация о Герое:     | Информация о Враге:     |");
@@ -261,12 +277,11 @@ namespace CourseWorkCs
             Thread.Sleep(100);
             Console.WriteLine($"| Здоровье: {player.GetHealth(),-14}| Здоровье: {enemy.GetHealth(),-14}|");
             Thread.Sleep(100);
-            Console.WriteLine($"| Выносливость: {player.GetStamina(),-4}(+{player.RegenerateStamina()}) | Выносливость: {enemy.GetStamina(),-4}(+{enemy.RegenerateStamina()}) |");
+            Console.WriteLine($"| Выносливость: {player.GetStamina(),-4}(+{playerRegenarateStamainaAmount}) | Выносливость: {enemy.GetStamina(),-4}(+{enemyRegenarateStamainaAmount}) |");
             Thread.Sleep(100);
-            Console.WriteLine($"| Мана: {player.GetMana(),-12}(+{player.RegenerateMana()}) | Мана: {enemy.GetMana(),-12}(+{enemy.RegenerateMana()}) |");
+            Console.WriteLine($"| Мана: {player.GetMana(),-12}(+{playerRegenarateManaAmount}) | Мана: {enemy.GetMana(),-12}(+{enemyRegenarateManaAmount}) |");
             Thread.Sleep(100);
             Console.WriteLine("+-------------------------+-------------------------+");
         }
     }
-
 }

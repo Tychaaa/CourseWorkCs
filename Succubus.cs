@@ -84,13 +84,13 @@ namespace CourseWorkCs
 
             if (stamina >= staminaCost)
             {
-                Screen.DisplayCharacterByCharacter(name + " очаровывает своим взглядом " + target.GetName() + "!");
+                Screen.DisplayCharacterByCharacter(name + " очаровывает своим взглядом " + target.GetName() + "!\n");
                 target.TakeDamage(damage);
                 DecreaseStamina(staminaCost);
             }
             else
             {
-                Screen.DisplayCharacterByCharacter(name + " слишком устала для очарования взглядом.");
+                Screen.DisplayCharacterByCharacter(name + " слишком устала для очарования взглядом.\n");
             }
         }
 
@@ -101,13 +101,13 @@ namespace CourseWorkCs
 
             if (stamina >= staminaCost)
             {
-                Screen.DisplayCharacterByCharacter(name + " обнимает " + target.GetName() + " в демоническом порыве!");
+                Screen.DisplayCharacterByCharacter(name + " обнимает " + target.GetName() + " в демоническом порыве!\n");
                 target.TakeDamage(damage);
                 DecreaseStamina(staminaCost);
             }
             else
             {
-                Screen.DisplayCharacterByCharacter(name + " слишком устала для демонического объятия.");
+                Screen.DisplayCharacterByCharacter(name + " слишком устала для демонического объятия.\n");
             }
         }
 
@@ -118,8 +118,8 @@ namespace CourseWorkCs
 
             if (mana >= manaCost)
             {
-                Screen.DisplayCharacterByCharacter(name + " наносит очаровывающий поцелуй " + target.GetName() + "!");
-                Screen.DisplayCharacterByCharacter(target.GetName() + " ослаблен от чар.");
+                Screen.DisplayCharacterByCharacter(name + " наносит очаровывающий поцелуй " + target.GetName() + "!\n");
+                Screen.DisplayCharacterByCharacter(target.GetName() + " ослаблен от чар.\n");
                 target.TakeDamage(damage);
                 target.DecreaseStamina(manaCost / 2);
 
@@ -127,7 +127,7 @@ namespace CourseWorkCs
             }
             else
             {
-                Screen.DisplayCharacterByCharacter(name + " слишком изнурена для очаровывающего поцелуя.");
+                Screen.DisplayCharacterByCharacter(name + " слишком изнурена для очаровывающего поцелуя.\n");
             }
         }
 
@@ -138,15 +138,15 @@ namespace CourseWorkCs
 
             if (stamina >= staminaCost)
             {
-                Screen.DisplayCharacterByCharacter(name + " шепчет завораживающие слова " + target.GetName() + "!");
+                Screen.DisplayCharacterByCharacter(name + " шепчет завораживающие слова " + target.GetName() + "!\n");
                 target.TakeDamage(damage);
-                Screen.DisplayCharacterByCharacter(name + " восстанавливает +" + (damage / 2) + " здоровья от мучений противника.");
+                Screen.DisplayCharacterByCharacter(name + " восстанавливает +" + (damage / 2) + " здоровья от мучений противника.\n");
                 health += damage / 2;
                 DecreaseStamina(staminaCost);
             }
             else
             {
-                Screen.DisplayCharacterByCharacter(name + " слишком устала для завораживающего шепота.");
+                Screen.DisplayCharacterByCharacter(name + " слишком устала для завораживающего шепота.\n");
             }
         }
 
@@ -157,14 +157,14 @@ namespace CourseWorkCs
 
             if (mana >= manaCost)
             {
-                Screen.DisplayCharacterByCharacter(name + " создает ловушку страсти вокруг " + target.GetName() + "!");
-                Screen.DisplayCharacterByCharacter(target.GetName() + " погружается в вихрь страстных эмоций и получает урон.");
+                Screen.DisplayCharacterByCharacter(name + " создает ловушку страсти вокруг " + target.GetName() + "!\n");
+                Screen.DisplayCharacterByCharacter(target.GetName() + " погружается в вихрь страстных эмоций и получает урон.\n");
                 target.TakeDamage(damage);
                 DecreaseMana(manaCost);
             }
             else
             {
-                Screen.DisplayCharacterByCharacter(name + " слишком изнурена для создания ловушки страсти.");
+                Screen.DisplayCharacterByCharacter(name + " слишком изнурена для создания ловушки страсти.\n");
             }
         }
     }
