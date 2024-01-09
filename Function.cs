@@ -729,7 +729,7 @@ namespace CourseWorkCs
         }
 
         // Глава "Финал"
-        void ChapterFinal(Character character)
+        public static void ChapterFinal(Character character)
         {
             GameTitle();
 
