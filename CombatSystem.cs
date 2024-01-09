@@ -14,6 +14,7 @@ namespace CourseWorkCs
         private int prevMaxPlayerStamina;
         private int prevMaxPlayerMana;
 
+        // Инструкция к бою
         public void DisplayTrainingInstructions()
         {
             Console.WriteLine("Добро пожаловать в тренировочный бой!\n");
@@ -68,6 +69,7 @@ namespace CourseWorkCs
             Console.ReadLine();
         }
 
+        // Запуск игры: сохраняются начальные характеристики игрока и противника, затем инициируется бой
         public void StartGame(Character player, Character enemy)
         {
             isTraining = false;
@@ -78,6 +80,7 @@ namespace CourseWorkCs
             InitiateCombat(player, enemy);
         }
 
+        // Запуск тренировочного боя
         public void StartGameTraining(Character player, Character enemy)
         {
             isTraining = true;
@@ -89,6 +92,7 @@ namespace CourseWorkCs
             InitiateCombat(player, enemy);
         }
 
+        // Начало боя: вывод информации, управление ходами игрока и противника
         public void InitiateCombat(Character player, Character enemy)
         {
             Console.WriteLine("\t\tБой начинается!");
@@ -111,6 +115,7 @@ namespace CourseWorkCs
             }
         }
 
+        // Ход игрока: вывод опций, чтение выбора, выполнение соответствующего действия
         public void PlayerTurn(Character player, Character enemy)
         {
             while (true)
@@ -169,11 +174,13 @@ namespace CourseWorkCs
             }
         }
 
+        // Ход противника
         public void EnemyTurn(Character player, Character enemy)
         {
             enemy.Attack(player);
         }
 
+        // Проверка на победу: проверка условий победы или поражения игрока и противника
         public bool CheckVictory(Character player, Character enemy)
         {
             if (player.GetHealth() <= 0)
@@ -235,6 +242,7 @@ namespace CourseWorkCs
             return false;
         }
 
+        // Восстановление значений здоровья, выносливости и маны игрока
         public void RestoreCharacterStats(Character character)
         {
             character.SetHealth(character.GetHealth() + character.GetMaxHealth());
@@ -242,21 +250,22 @@ namespace CourseWorkCs
             character.SetMana(character.GetMana() + character.GetMaxMana());
         }
 
+        // Вывод информации о персонажах на экран
         public void DisplayCharacterInfo(Character player, Character enemy)
         {
-            Console.WriteLine("\n+------------------------+------------------------+");
+            Console.WriteLine("\n+-------------------------+-------------------------+");
             Thread.Sleep(100);
-            Console.WriteLine("| Информация о Герое:    | Информация о Враге:    |");
+            Console.WriteLine("| Информация о Герое:     | Информация о Враге:     |");
             Thread.Sleep(100);
-            Console.WriteLine("+------------------------+------------------------+");
+            Console.WriteLine("+-------------------------+-------------------------+");
             Thread.Sleep(100);
-            Console.WriteLine($"| Здоровье: {player.GetHealth(),-10}| Здоровье: {enemy.GetHealth(),-10}|");
+            Console.WriteLine($"| Здоровье: {player.GetHealth(),-14}| Здоровье: {enemy.GetHealth(),-14}|");
             Thread.Sleep(100);
             Console.WriteLine($"| Выносливость: {player.GetStamina(),-4}(+{player.RegenerateStamina()}) | Выносливость: {enemy.GetStamina(),-4}(+{enemy.RegenerateStamina()}) |");
             Thread.Sleep(100);
-            Console.WriteLine($"| Мана: {player.GetMana(),-11}(+{player.RegenerateMana()}) | Мана: {enemy.GetMana(),-11}(+{enemy.RegenerateMana()}) |");
+            Console.WriteLine($"| Мана: {player.GetMana(),-12}(+{player.RegenerateMana()}) | Мана: {enemy.GetMana(),-12}(+{enemy.RegenerateMana()}) |");
             Thread.Sleep(100);
-            Console.WriteLine("+------------------------+------------------------+");
+            Console.WriteLine("+-------------------------+-------------------------+");
         }
     }
 

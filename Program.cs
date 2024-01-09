@@ -22,7 +22,7 @@
 
             //Function.MainMenu();
 
-            Character mainCharacter = Function.CreateMainCharacter();
+            //Character mainCharacter = Function.CreateMainCharacter();
 
             //Function.Introduction(ref mainCharacter);
 
@@ -32,6 +32,15 @@
 
             //Function.GoodEnding(mainCharacter);
             //Function.BadEnding(mainCharacter);
+
+            CombatSystem fight = new CombatSystem();
+            Wolf wolf = new Wolf("Волк", 100, 50, 50);
+
+            Weapon sword = new Weapon("Меч", 30, 20);
+            Magic fireball = new Magic("Огенный шар", 35, 25);
+            Character mainCharacter = new Character("SHICHI", 100, 100, 100, sword, fireball, "Воин");
+
+            fight.StartGame(mainCharacter, wolf);
         }
     }
 }
