@@ -151,7 +151,7 @@ namespace CourseWorkCs
 
         public void SetExperience(int newExp)
         {
-            experience += newExp;
+            experience = newExp;
             while (experience >= 100)
             {
                 LevelUp();
@@ -192,28 +192,34 @@ namespace CourseWorkCs
 
         public virtual void Attack(Character target)
         {
-            Random random = new Random();
-            int choice = random.Next(1, 101);
+            while (true)
+            {
+                Random random = new Random();
+                int choice = random.Next(1, 101);
 
-            if (choice <= 45)
-            {
-                if (weapon == null)
+                if (choice <= 45)
                 {
-                    return;
+                    if (weapon == null)
+                    {
+                        continue;
+                    }
+                    AttackWeapon(target);
+                    break;
                 }
-                AttackWeapon(target);
-            }
-            else if (choice > 45 && choice <= 90)
-            {
-                if (magic == null)
+                else if (choice > 45 && choice <= 90)
                 {
-                    return;
+                    if (magic == null)
+                    {
+                        continue;
+                    }
+                    CastSpell(target);
+                    break;
                 }
-                CastSpell(target);
-            }
-            else
-            {
-                Screen.DisplayCharacterByCharacter(name + " промахивается и не попадает по " + target.GetName() + ".\n");
+                else
+                {
+                    Screen.DisplayCharacterByCharacter(name + " промахивается и не попадает по " + target.GetName() + ".\n");
+                    break;
+                } 
             }
         }
 

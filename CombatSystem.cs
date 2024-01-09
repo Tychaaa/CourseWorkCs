@@ -74,9 +74,9 @@ namespace CourseWorkCs
         {
             isTraining = false;
             // Сохранение начальных характеристик игрока
-            prevMaxPlayerHealth = player.GetHealth();
-            prevMaxPlayerStamina = player.GetStamina();
-            prevMaxPlayerMana = player.GetMana();
+            prevMaxPlayerHealth = player.GetMaxHealth();
+            prevMaxPlayerStamina = player.GetMaxStamina();
+            prevMaxPlayerMana = player.GetMaxMana();
 
             //Запуск боя
             InitiateCombat(player, enemy);
@@ -87,9 +87,9 @@ namespace CourseWorkCs
         {
             isTraining = true;
             // Сохранение начальных характеристик игрока
-            prevMaxPlayerHealth = player.GetHealth();
-            prevMaxPlayerStamina = player.GetStamina();
-            prevMaxPlayerMana = player.GetMana();
+            prevMaxPlayerHealth = player.GetMaxHealth();
+            prevMaxPlayerStamina = player.GetMaxStamina();
+            prevMaxPlayerMana = player.GetMaxMana();
 
             DisplayTrainingInstructions();
             //Запуск боя
@@ -99,7 +99,7 @@ namespace CourseWorkCs
         // Начало боя: вывод информации, управление ходами игрока и противника
         public void InitiateCombat(Character player, Character enemy)
         {
-            Console.WriteLine("\t\tБой начинается!");
+            Console.WriteLine("\n\t\tБой начинается!");
             Thread.Sleep(1000);
 
             DisplayCharacterInfo(player, enemy);
@@ -256,9 +256,9 @@ namespace CourseWorkCs
         // Восстановление значений здоровья, выносливости и маны игрока
         public void RestoreCharacterStats(Character character)
         {
-            character.SetHealth(character.GetHealth() + character.GetMaxHealth());
-            character.SetStamina(character.GetStamina() + character.GetMaxStamina());
-            character.SetMana(character.GetMana() + character.GetMaxMana());
+            character.SetHealth(character.GetMaxHealth());
+            character.SetStamina(character.GetMaxStamina());
+            character.SetMana(character.GetMaxMana());
         }
 
         // Вывод информации о персонажах на экран
