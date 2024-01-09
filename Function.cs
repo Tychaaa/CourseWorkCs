@@ -306,8 +306,8 @@ namespace CourseWorkCs
 
                 // Выводим информацию об оружии и магии
                 Console.WriteLine(
-                    $"{currentWeapon.GetName().PadLeft(15)} (dmg: {currentWeapon.GetDamage(),2}, stm: -{currentWeapon.GetCost(),2})     |" +
-                    $"{currentMagic.GetName().PadLeft(25)} (dmg: {currentMagic.GetDamage(),2}, mana: -{currentMagic.GetCost(),2})    |"
+                    $"{currentWeapon.GetName(), -15} (dmg: {currentWeapon.GetDamage(),-2}, stm: -{currentWeapon.GetCost(),-2})     |" +
+                    $"{currentMagic.GetName(),-25} (dmg: {currentMagic.GetDamage(),-2}, mana: -{currentMagic.GetCost(),-2})    |"
                 );
             }
 
