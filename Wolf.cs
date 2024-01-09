@@ -7,6 +7,9 @@ using System.Xml.Linq;
 
 namespace CourseWorkCs
 {
+    /*
+    *   ВОЛК (WOLF)
+    */
     public class Wolf : Character
     {
         public Wolf() : base() { }
