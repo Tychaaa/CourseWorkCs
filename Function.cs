@@ -433,7 +433,7 @@ namespace CourseWorkCs
         }
 
         // Вступление
-        public static void Introduction(Character character)
+        public static void Introduction(ref Character character)
         {
             // Определяем отступ слева
             int leftIndent = 10;
@@ -510,7 +510,7 @@ namespace CourseWorkCs
         }
 
         // Глава "Пролог"
-        public static void Prologue(Character character)
+        public static void Prologue(ref Character character)
         {
             GameTitle();
 
@@ -586,7 +586,6 @@ namespace CourseWorkCs
                     Thread.Sleep(1000);
                     Screen.DisplayText("\n(Добавлено +20 опыта)");
                     Thread.Sleep(1000);
-                    Screen.DisplayText("\n");
 
                     // Увеличение опыта персонажа
                     character.SetExperience(character.GetExperience() + 20);
@@ -617,7 +616,7 @@ namespace CourseWorkCs
         }
 
         // Посещение локации "Эмердейл"
-        public static void EnterEmerdaleLocation(Character character)
+        public static void EnterEmerdaleLocation(ref Character character)
         {
             Location emerdealLocation = new Location("г.Эмердейл", "Город предоставляет разнообразные возможности для приключений, от торговли и заданий до исследования таинственных мест в его окрестностях.\nЭмердейл - место, где начинаются великие истории, и каждый приезжий ощущает волнение перед неизведанным.");
 
@@ -671,8 +670,336 @@ namespace CourseWorkCs
             emerdealLocation.OnEnter();
         }
 
+        // Обучение бою
+        public static void CombatTraining(ref Character character)
+        {
+            GameTitle();
+
+            // Продолжение после исследования города Эмердейл
+            Screen.DisplayText($"\nПосле тщательного исследования города Эмердейл, {character.GetName()} решил двинуться дальше по своим делам.\n");
+            Thread.Sleep(1500);
+
+            Screen.DisplayText("Герой заскочил в таверну, насладился беседой с гостеприимным трактирщиком, встретил лично воеводу города,\nвзял на себя обязанность пообщаться с местными жителями и, наконец, заглянул в ткацкую мастерскую.");
+            Thread.Sleep(1500);
+
+            // Внезапно, воевода Стелсвин подходит к герою.
+            Screen.DisplayDialog("Капитан Стелсвин", $"{character.GetName()}, я видел, как ты исследовал наш город. У меня есть предложение для тебя.");
+
+            Screen.DisplayDialog("Капитан Стелсвин", "Мы ищем сильных воинов, способных защитить нашу страну Семи Клинков. Я хочу предложить тебе тренировку.");
+
+            Screen.DisplayDialog("Капитан Стелсвин решительно продолжает", "Это будет тренировочный бой, в котором ты сможешь продемонстрировать свои навыки. Что скажешь?");
+
+            // Пользователь делает выбор
+            Console.Write("\n1. Принять предложение и приступить к тренировке."
+                + "\n2. Отказаться и продолжить свое путешествие."
+                + "\n\nВаш выбор: ");
+
+            int trainingChoice;
+            // Проверка наличия ошибок ввода и ввода букв
+            while (!int.TryParse(Console.ReadLine(), out trainingChoice) || (trainingChoice != 1 && trainingChoice != 2))
+            {
+                // Выводим сообщение NPC об ошибке и просим ввести ответ заново
+                Screen.DisplayDialog("Капитан Стелсвин", "Не понял твоего ответа. Повтори ещё раз!");
+                Console.Write("\nВаш ответ: ");
+            }
+
+            switch (trainingChoice)
+            {
+                case 1:
+                    Screen.DisplayDialog("Капитан Стелсвин", "Отлично! Давай начнем тренировку. Пойдем на тренировочную площадку.");
+                    break;
+
+                case 2:
+                    Screen.DisplayDialog("Капитан Стелсвин", "Но я вижу в тебе потенциал. Даже если ты не хочешь, я проведу тренировочный бой, чтобы помочь тебе развить свои навыки.");
+                    break;
+
+                default:
+                    Screen.DisplayDialog("Капитан Стелсвин", "Так как ты молчишь, давай начнем!");
+                    break;
+            }
+
+            Weapon captainSword = new Weapon("Меч капитана", 35, 25);
+            Character enemy = new Character("Капитан Стелсвин", 200, 150, 150, captainSword, null, 100);
+
+            CombatSystem fight = new CombatSystem();
+
+            // Продолжение сюжета после тренировочного боя с капитаном Стелсвином
+            Screen.DisplayText($"\nТренировочный бой начался. Капитан Стелсвин демонстрировал свою силу и мастерство, но {character.GetName()} не оставался в стороне.\n");
+            Thread.Sleep(1500);
+
+            fight.StartGameTraining(character, enemy);
+
+            // Подводим итоги тренировочного боя
+            if (enemy.GetHealth() <= 0)
+            {
+                Screen.DisplayText("Герой справился с тренировочным боем, но Капитан Стелсвин выражает восхищение.");
+                Screen.DisplayDialog("Капитан Стелсвин", $"Отличная работа, {character.GetName()}! Ты проявил себя в бою, и я уверен, что у тебя впереди великие подвиги.");
+            }
+            else
+            {
+                Screen.DisplayText("К сожалению, герой проиграл тренировочный бой, но Капитан Стелсвин подходит к нему с улыбкой.");
+                Screen.DisplayDialog("Капитан Стелсвин", $"Ты проявил силу и решимость, даже если не смог одолеть меня. Ты обучаешься быстро.");
+            }
+
+            Screen.DisplayDialog("Капитан Стелсвин", "Теперь, когда ты прошел тренировку, у меня есть для тебя новое задание. Вокруг Эмердейла происходят странные события, и я нуждаюсь в твоей помощи.");
+
+            // Пользователь делает выбор
+            Console.Write("\n1. Принять новое задание и отправиться на новые приключения."
+                + "\n2. Отказаться и продолжить свое путешествие."
+                + "\n\nВаш выбор: ");
+
+            int questChoice;
+
+            // Проверка наличия ошибок ввода и ввода букв
+            while (!int.TryParse(Console.ReadLine(), out questChoice) || (questChoice != 1 && questChoice != 2))
+            {
+                // Выводим сообщение NPC об ошибке и просим ввести ответ заново
+                Screen.DisplayDialog("Капитан Стелсвин", "Не понял твоего ответа. Повтори ещё раз!");
+                Console.Write("\nВаш ответ: ");
+            }
+
+            switch (questChoice)
+            {
+                case 1:
+                    Screen.DisplayDialog("Капитан Стелсвин", $"Отлично! Иди к стражнику на входе в город. Он даст тебе все необходимые инструкции для нового задания.");
+                    break;
+
+                case 2:
+                    Screen.DisplayDialog("Капитан Стелсвин", $"Ты проявляешь решительность, {character.GetName()}. Однако новое задание поможет тебе стать еще сильнее. Иди к стражнику на входе в город.");
+                    break;
+
+                default:
+                    break;
+            }
+
+            // Ожидаем нажатия клавиши перед продолжением
+            Screen.DisplayText("\nНажмите Enter, чтобы продолжить...");
+            Console.ReadLine();
+        }
+
+        // Глава 1
+        public static void ChapterOne(ref Character character)
+        {
+            GameTitle();
+
+            // Определяем отступ слева
+            int leftIndent = 10;
+
+            // ASCII-арт для главы 1 с отступом слева
+            List<string> chapterOneArt = new List<string>
+            {
+                "  _____  _                    _                  ____               ",
+                " / ____|| |                  | |                / __ \\              ",
+                "| |     | |__    __ _  _ __  | |_   ___  _ __  | |  | | _ __    ___ ",
+                "| |     | '_ \\  / _` || '_ \\ | __| / _ \\| '__| | |  | || '_ \\  / _ \\",
+                "| |____ | | | || (_| || |_) || |_ |  __/| |    | |__| || | | ||  __/",
+                " \\_____||_| |_| \\__,_|| .__/  \\__| \\___||_|     \\____/ |_| |_| \\___|",
+                "                      | |                                            ",
+                "                      |_|                                            "
+            };
+
+            // Выводим ASCII-арт для главы 1
+            foreach (string line in chapterOneArt)
+            {
+                // Добавляем отступ слева
+                Console.WriteLine(new string(' ', leftIndent) + line);
+            }
+
+            Thread.Sleep(1500);
+
+            Console.WriteLine("\n\n");
+
+            // Описание пути к стражнику
+            Screen.DisplayText($"\n{character.GetName()} шел по узкой дорожке, ведущей к воротам Эмердейла. По сторонам тянулись густые леса, и воздух наполнялся звуками природы.");
+            Thread.Sleep(1500);
+
+            Screen.DisplayText($"\nВдалеке мелькали странные тени, но герой не обращал на них внимания, сосредотачившись на своем предстоящем задании.");
+            Thread.Sleep(1500);
+
+            // Встреча со стражником
+            Screen.DisplayDialog("Стражник", $"Здравствуй, {character.GetName()}! Я слышал, что ты собираешься отправиться в путь.");
+
+            Screen.DisplayDialog("Стражник", "У меня есть для тебя задание. В округе появились опасные монстры, и мы нуждаемся в твоей помощи.");
+
+            Screen.DisplayDialog("Стражник", "Твоя задача проста: уничтожь нескольких монстров в окрестностях Эмердейла. Не дай им приблизиться к городу.");
+
+            // Задание начинается
+            Screen.DisplayText("\nЗадание началось: 'Очистка окрестностей от монстров'.");
+            Thread.Sleep(1500);
+
+            Screen.DisplayText("\nВы встречаете огра и двух гоблинов.");
+            Thread.Sleep(1500);
+
+            Screen.DisplayText("\nПервыми на бой вышли гоблины.");
+            Thread.Sleep(1500);
+
+            CombatSystem fight = new CombatSystem();
+
+            Ogre ogre = new Ogre("Огр", 100, 100, 0);
+
+            Goblin goblin1 = new Goblin("Гоблин 1", 60, 100, 100);
+            Goblin goblin2 = new Goblin("Гоблин 2", 60, 100, 100);
+
+            fight.StartGame(character, goblin1);
+
+            fight.StartGame(character, goblin2);
+
+            Screen.DisplayText("\nТеперь нам предстоит битва с огром.");
+            Thread.Sleep(1500);
+
+            fight.StartGame(character, ogre);
+
+            Screen.DisplayText("\nМонстры повержены, и окрестности города теперь безопасны.");
+            Thread.Sleep(1500);
+
+            Screen.DisplayDialog("Стражник", $"Отличная работа, {character.GetName()}! Спасибо за твою помощь в очистке окрестностей.");
+            Thread.Sleep(1500);
+
+            Screen.DisplayDialog("Стражник", "Ты доказал, что являешься настоящим героем, защищающим наши земли.");
+            Thread.Sleep(1500);
+
+            Screen.DisplayDialog("Стражник", "Город Эмердейл гордится такими отважными и преданными защитниками, как ты.");
+            Thread.Sleep(1500);
+
+            Screen.DisplayDialog("Стражник", "Если у тебя есть еще какие-то вопросы или нужна помощь, не стесняйся обращаться к нам.");
+            Thread.Sleep(1500);
+
+            Screen.DisplayDialog("Стражник", "Ты можешь отдохнуть и пополнить свои запасы в городе перед новыми приключениями.");
+            Thread.Sleep(1500);
+
+            // Ожидаем нажатия клавиши перед продолжением
+            Screen.DisplayText("\nНажмите Enter, чтобы продолжить...");
+            Console.ReadLine();
+        }
+
+        // Глава 2
+        public static void ChapterTwo(ref Character character)
+        {
+            GameTitle();
+
+            // Определяем отступ слева
+            int leftIndent = 10;
+
+            // ASCII-арт для главы 2 с отступом слева
+            List<string> chapterTwoArt = new List<string>
+            {
+                "  _____  _                    _                 _______                  ",
+                " / ____|| |                  | |               |__   __|                 ",
+                "| |     | |__    __ _  _ __  | |_   ___  _ __     | |   __      __  ___  ",
+                "| |     | '_ \\  / _` || '_ \\ | __| / _ \\| '__|    | |   \\ \\ /\\ / / / _ \\ ",
+                "| |____ | | | || (_| || |_) || |_ |  __/| |       | |    \\ V  V / | (_) |",
+                " \\_____||_| |_| \\__,_|| .__/  \\__| \\___||_|       |_|     \\_/\\_/   \\___/ ",
+                "                      | |                                                 ",
+                "                      |_|                                                 "
+            };
+
+            // Выводим ASCII-арт для главы 2
+            foreach (string line in chapterTwoArt)
+            {
+                // Добавляем отступ слева
+                Console.WriteLine(new string(' ', leftIndent) + line);
+            }
+
+            Thread.Sleep(1500);
+
+            Console.WriteLine("\n\n");
+
+            // Описание пути героя к новой локации
+            Screen.DisplayText($"\n{character.GetName()} отправился в путь, и его следующей целью стала таинственная лесная долина.");
+            Thread.Sleep(1500);
+
+            Screen.DisplayText($"\nПуть был труден, но герой несмотря на все трудности продолжал идти, стремясь к новым приключениям.");
+            Thread.Sleep(1500);
+
+            Location forestValleyLocation = new Location("Лесная долина", "Таинственная лесная долина, полная загадок и опасностей.\n"
+                + "Здесь обитают древние существа и духи природы. Путники должны быть осторожны и готовы к встрече с темными силами.");
+
+            // Эльфийка
+            List<string> elfPhrases = new List<string>
+            {
+                $"\"- Добро пожаловать в лесную долину, {character.GetName()}. Здесь вы почувствуете силу природы и встретите ее хранительницу.\"",
+                $"\"- Лес - место таинственное и магическое. Рада видеть тебя здесь, искатель приключений.\"",
+                $"\"- Если у тебя есть вопросы о лесе или природе, не стесняйся спрашивать. С удовольствием поделюсь своими знаниями.\"",
+                $"\"- В этом лесу спрятаны древние тайны и сокровища. Только тот, кто с уважением относится к природе, может раскрывать их.\"",
+                $"\"- Будь осторожен в своих действиях, и лес откроет тебе свои тайны.\""
+            };
+            NPC elf = new NPC("Эльфийка Себилла",
+                "Древняя эльфийка, живущая в лесной долине. Себилла - стражница леса и его древних тайн.\n"
+                + "Она может помочь герою понять природу леса и его особенности.",
+                elfPhrases);
+            forestValleyLocation.AddInteractiveObject(elf);
+
+            // Друид
+            List<string> druidPhrases = new List<string>
+            {
+                $"\"- Добро пожаловать в лесную долину, {character.GetName()}. Я - Дриада Элина, хранительница природы.\"",
+                $"\"- В этом лесу каждое дерево - часть меня. С уважением к природе, ты найдешь здесь свою силу и понимание.\"",
+                $"\"- Лес - место силы и энергии. Я готова помочь тебе освоиться в этом волшебном мире.\"",
+                $"\"- Если ты нуждаешься в совете по вопросам природы и ее магии, приходи ко мне.\"",
+                $"\"- Береги природу, и она ответит тебе взаимностью.\""
+            };
+            NPC druid = new NPC("Друид Элина",
+                "Покровительница леса и природы. Дриада Элина - душа лесной долины, чуткая к сердцам всех его обитателей.\n"
+                + "Она может помочь герою понять связь с природой и использовать ее магию.",
+                druidPhrases);
+            forestValleyLocation.AddInteractiveObject(druid);
+
+            // Лесной странник
+            List<string> rangerPhrases = new List<string>
+            {
+                $"\"- Приветствую, странник! В лесу полно опасностей, но и много сокровищ. Ты готов исследовать его тайны?\"",
+                $"\"- Лес - место для сильных и смелых. Ты выглядишь таким. Если нужна помощь или совет, обращайся ко мне.\"",
+                $"\"- В каждом уголке леса есть что-то удивительное. Следуй за своим сердцем, и ты обнаружишь его тайны.\"",
+                $"\"- Если тебе нужна защита или компания в пути, я готов предложить свою помощь.\"",
+                $"\"- Слушай звуки леса и будь готов ко всему. В этом мире ты можешь найти свою судьбу.\""
+            };
+            NPC ranger = new NPC("Лесной странник Фарин",
+                "Охотник и разведчик, знающий все уголки леса. Фарин - искусный стрелок и опытный наблюдатель за дикой природой.\n"
+                + "Он может быть надежным компаньоном и помощником в приключениях.",
+                rangerPhrases);
+            forestValleyLocation.AddInteractiveObject(ranger);
+
+            forestValleyLocation.OnEnter();
+
+            // Вступление перед боем
+            Screen.DisplayText($"\nНаконец, {character.GetName()} достиг лесной долины. Воздух наполнился ароматом цветов и шумом листьев.");
+            Thread.Sleep(1500);
+
+            Screen.DisplayText($"\nНо вдруг вокруг него замелькали темные фигуры. Таинственные силуэты выходили из тени, поджидая исследователя.");
+            Thread.Sleep(1500);
+
+            // Бой с монстрами в лесной долине
+            Screen.DisplayText("\nВнезапно героя окружили темные силуэты. Наверное, это не всеобъемлющий привет.");
+
+            Wolf wolf = new Wolf("Волчара", 60, 50, 0);
+
+            Skeleton skeleton1 = new Skeleton("Зловещий скелет Фейн", 40, 100, 100);
+
+            Skeleton skeleton2 = new Skeleton("Загадочный Скелет Балд", 40, 100, 100);
+
+            CombatSystem fight = new CombatSystem();
+
+            Screen.DisplayText("\nВы встречаете волка и двух скелетов.");
+            Thread.Sleep(1500);
+
+            Screen.DisplayText("\nПервыми на бой вышли скелеты.");
+            Thread.Sleep(1500);
+
+            fight.StartGame(character, skeleton1);
+            fight.StartGame(character, skeleton2);
+
+            Screen.DisplayText("\nТеперь нам предстоит битва с волком.");
+            Thread.Sleep(1500);
+
+            fight.StartGame(character, wolf);
+
+            // Ожидаем нажатия клавиши перед продолжением
+            Screen.DisplayText("\nНажмите Enter, чтобы продолжить...");
+            Console.ReadLine();
+        }
+
         // Улучшение персонажа перед финалом
-        public static void CharacterUpgrade(Character character)
+        public static void CharacterUpgrade(ref Character character)
         {
             character.SetHealth(420);
             character.SetMaxHealth(420);
@@ -729,7 +1056,7 @@ namespace CourseWorkCs
         }
 
         // Глава "Финал"
-        public static void ChapterFinal(Character character)
+        public static void ChapterFinal(ref Character character)
         {
             GameTitle();
 
@@ -760,7 +1087,7 @@ namespace CourseWorkCs
 
             Console.WriteLine("\n\n");
 
-            CharacterUpgrade(character);
+            CharacterUpgrade(ref character);
 
             // Переход к финалу после прошествия времени
             Screen.DisplayText($"\nПрошло много лет с тех пор, как {character.GetName()} отправился в свое первое приключение.");
@@ -884,17 +1211,80 @@ namespace CourseWorkCs
             Screen.DisplayText($"\nПоследнее приключение начинается, и {character.GetName()} вступает в бой со всеми силами Княжества Тьмы!");
             Thread.Sleep(1500);
 
-            //FinalFight(character);
+            FinalFight(ref character);
 
-            ChooseGameEnding(character);
+            ChooseGameEnding(ref character);
 
             // Ожидаем нажатия клавиши перед продолжением
             Screen.DisplayText("\nНажмите Enter, чтобы продолжить...");
             Console.ReadLine();
         }
 
+        // Сцена финальной битвы
+        public static void FinalFight(ref Character character)
+        {
+            CombatSystem fight = new CombatSystem();
+
+            // Характеристики соперников
+            DarkLord darklord = new DarkLord("Владыка Тьмы Вергилий", 600, 500, 400);
+            Demon demon = new Demon("Демон-стражник Азгар", 550, 450, 450);
+            Succubus succubus = new Succubus("Суккуб Малина", 500, 400, 500);
+            Witch witch = new Witch("Ведьма Лилит", 550, 500, 450);
+            Enchantress enchantress = new Enchantress("Зачаровательница Моргана", 500, 450, 500);
+            DarkElf darkElf = new DarkElf("Темная эльфийка Аделлия", 520, 480, 480);
+
+            Console.WriteLine("Рассказчик: Главный герой подходит к темным вратам, за которыми состоится последний бой.");
+            Console.WriteLine("Рассказчик: Перед вами возвышается Демон-стражник Азгар, готовый испытать ваши силы.");
+            Console.WriteLine("Демон-стражник Азгар: Так, ты добрался сюда, смертный. Но это будет твой последний шаг!");
+            Console.WriteLine($"{character.GetName()}: Я не остановлюсь, пока не сокрушу твои темные планы!");
+            Console.WriteLine("Демон-стражник Азгар: Увидим, увидим... Начнем наше последнее противостояние!");
+
+            // Бой с Демон - стражник Азгар
+            Console.WriteLine("Рассказчик: И вот, первым выходит на бой Демон - стражник Азгар!\n");
+            fight.StartGame(character, demon);
+
+            // Бой с Суккуб Малина
+            Console.WriteLine("Рассказчик: Теперь на арену выходит Суккуб Малина!");
+            Console.WriteLine("Суккуб Малина: О, мой милый герой, я видела твой путь через тьму и свет.");
+            Console.WriteLine($"{character.GetName()}: Твои обманчивые слова не помогут тебе в этой битве, Малина!");
+            Console.WriteLine("Суккуб Малина: О, я не собираюсь убеждать тебя. Давай окунемся в танец страсти и смерти!");
+            fight.StartGame(character, succubus);
+
+            // Бой с Ведьмой Лилит
+            Console.WriteLine("Рассказчик: Следующая на подмогу приходит Ведьма Лилит!");
+            Console.WriteLine("Ведьма Лилит: Ты думаешь, что можешь победить меня, чужеземец? Ты заблуждаешься.");
+            Console.WriteLine($"{character.GetName()}: Твои зловещие заговоры не остановят меня. Приготовься к своему поражению!");
+            Console.WriteLine("Ведьма Лилит: Смелые слова. Позволь мне увидеть, на что ты способен!");
+            fight.StartGame(character, witch);
+
+            // Бой с Зачаровательницей Морганой
+            Console.WriteLine("Рассказчик: Теперь в бой вступает Зачаровательница Моргана!");
+            Console.WriteLine("Зачаровательница Моргана: Ты, чужеземец, наступил на святую землю. Ты заплатишь за свою дерзость.");
+            Console.WriteLine($"{character.GetName()}: Твои чары не пугают меня. Я докажу, что тьма не может поглотить свет!");
+            Console.WriteLine("Зачаровательница Моргана: Твои слова бесполезны. Готовься к поражению!");
+            fight.StartGame(character, enchantress);
+
+            // Бой с Темной эльфийкой Аделлией
+            Console.WriteLine("Рассказчик: На последнем этапе боя появляется Темная эльфийка Аделлия!");
+            Console.WriteLine("Темная эльфийка Аделлия: Ты смеешь встать на пути Владыки Тьмы? Ты поплатишься за свою дерзость!");
+            Console.WriteLine($"{character.GetName()}: Твои тени не смогут поглотить свет моей силы. Я завершу это!");
+            Console.WriteLine("Темная эльфийка Аделлия: Смешно. Но в этот раз ты не уйдешь от своей участи.");
+            fight.StartGame(character, darkElf);
+
+            // Бой с Главным боссом - Владыка Тьмы Вергилий
+            Console.WriteLine("Рассказчик: И, наконец, на арене появляется Владыка Тьмы Вергилий, главный босс этой истории!");
+            Console.WriteLine("Владыка Тьмы Вергилий: Так, ты добрался до меня, смертный. Но твой путь заканчивается здесь.");
+            Console.WriteLine($"{character.GetName()}: Вергилий, твоя тень не затмит свет моего меча. Я пришел завершить твои злодеяния!");
+            Console.WriteLine("Владыка Тьмы Вергилий: Ты смеешь бросить вызов мне, Владыке Тьмы? Ты будешь последним, кто увидит свет.");
+            Console.WriteLine($"{character.GetName()}: Вергилий, твоя тень могущественна, но я не позволю ей поглотить этот мир!");
+            Console.WriteLine("Владыка Тьмы Вергилий: Ты лишь маленький светоч во мраке. Твоя сила исчезнет перед моей тьмой.");
+            Console.WriteLine($"{character.GetName()}: Мрак не может победить свет, Вергилий. Мой меч пронзит твою тень, и тьма будет побеждена!");
+            Console.WriteLine("Владыка Тьмы Вергилий: Ты говоришь много, смертный. Но я покажу тебе истинную силу тьмы!");
+            fight.StartGame(character, darklord);
+        }
+
         // Функция для выбора концовки игры
-        public static void ChooseGameEnding(Character character)
+        public static void ChooseGameEnding(ref Character character)
         {
             Screen.DisplayText($"\nПосле жесткой битвы в замке, Владыка Тьмы лежит побежденным перед {character.GetName()}.");
             Thread.Sleep(1500);
@@ -928,10 +1318,10 @@ namespace CourseWorkCs
             switch (choice)
             {
                 case 1:
-                    GoodEnding(character);
+                    GoodEnding(ref character);
                     break;
                 case 2:
-                    BadEnding(character);
+                    BadEnding(ref character);
                     break;
                 default:
                     break;
@@ -939,7 +1329,7 @@ namespace CourseWorkCs
         }
 
         // Функция для "хорошей" концовки
-        public static void GoodEnding(Character character)
+        public static void GoodEnding(ref Character character)
         {
             Screen.DisplayDialog("Рассказчик", $"Свет побеждает тьму! С мощным мечом {character.GetName()} сразил Владыку Тьмы, освободив мир от его власти.");
             Thread.Sleep(500);
@@ -955,7 +1345,7 @@ namespace CourseWorkCs
         }
 
         // Функция для "плохой" концовки
-        public static void BadEnding(Character character)
+        public static void BadEnding(ref Character character)
         {
             Screen.DisplayDialog("Рассказчик", $"В поисках силы, {character.GetName()} решает воспользоваться темной магией Владыки Тьмы.");
             Thread.Sleep(500);
